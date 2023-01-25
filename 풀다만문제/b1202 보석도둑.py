@@ -13,14 +13,14 @@ for k in range(K):
 
 ans = 0
 
-jewels.sort(key=lambda x:x[1], reverse=True)
+jewels.sort(key=lambda x:(-x[0], x[1]))
 bags.sort()
 
-for M, V in jewels:
-    for bag in bags:
-        if bag >= M:
-            ans += V
-            bags.pop(bags.index(bag))
+for b in bags:
+    while jewels:
+        if jewels[-1][0]<=b:
+            ans+=jewels.pop()[1]
+        else:
             break
 
 print(ans)
