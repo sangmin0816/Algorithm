@@ -1,3 +1,4 @@
+# 전형적인 배낭 문제
 import sys
 input = sys.stdin.readline
 
