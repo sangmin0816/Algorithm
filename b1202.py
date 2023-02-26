@@ -16,16 +16,15 @@ for k in range(K):
 ans = 0
 
 bags.sort(reverse=True)
-temp = []
+temp = PriorityQueue()
 
 for b in bags:
-    while not jewels.empty():
+    for i in range(jewels.qsize()):
         v, m = jewels.get()
         if m<=b:
             ans += -v
             break
-        temp.append([v, m])
-    for v, m in temp:
-        jewels.put((v, m))
+        temp.put([v, m])
+    jewels.join(temp)
 
 print(ans)
