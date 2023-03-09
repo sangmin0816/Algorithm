@@ -1,13 +1,12 @@
-from queue import PriorityQueue
 import sys
 input = sys.stdin.readline
 
 N, K = map(int, input().split(' '))
-jewels = PriorityQueue()
 
+jewels = list()
 for n in range(N):
     M, V = map(int, input().split(' '))
-    jewels.put((-V, M))
+    jewels.append([V, M])
 
 bags = list()
 for k in range(K):
@@ -16,15 +15,18 @@ for k in range(K):
 ans = 0
 
 bags.sort(reverse=True)
-temp = PriorityQueue()
+
+temp = list()
 
 for b in bags:
-    for i in range(jewels.qsize()):
-        v, m = jewels.get()
+    jewels.sort(key=lambda x:(x[0], x[1]))
+    while jewels:
+        v, m = jewels.pop()
         if m<=b:
-            ans += -v
+            ans+=v
             break
-        temp.put([v, m])
-    jewels.join(temp)
+        temp.append([v, m])
+    
+    jewels.extend(temp)
 
 print(ans)
